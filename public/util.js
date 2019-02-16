@@ -4,15 +4,13 @@
  *
  * The returned string is also url-safe.
  *
- * @param {Number} length the length of the random string.
+ * @param {Number} length bytes of entropy in the random string.
  * @returns {String}
  */
 function randomString(length) {
-  const validChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let array = new Uint8Array(length);
   window.crypto.getRandomValues(array);
-  array = array.map(x => validChars.charCodeAt(x % validChars.length));
-  return String.fromCharCode(...array);
+  return bufferToBase64UrlEncoded(array);
 }
 
 /**
